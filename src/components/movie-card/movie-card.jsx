@@ -1,15 +1,22 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ movie }) => {
   return (
-    <Card className="h-100" onClick={() => onMovieClick(movie)} variant="link">
-      <Card.Img className="h-100" variant="top" src={movie.image} />
-      <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.genre}</Card.Text>
-      </Card.Body>
-    </Card>
+    <Link
+      to={`/movies/${encodeURIComponent(movie.id)}`}
+      style={{ textDecoration: "none" }}
+    >
+      <Card className="h-100" bg="dark" text="white">
+        <Card.Img className="h-100" variant="top" src={movie.image} />
+        <Card.Body>
+          <Card.Title>{movie.title}</Card.Title>
+          <Card.Text>{movie.genre}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 };
 
