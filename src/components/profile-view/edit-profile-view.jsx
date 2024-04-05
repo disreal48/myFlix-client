@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-export const SignupView = () => {
-  const navigate = useNavigate();
-
+export const EditProfileView = ({ user, token }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -21,18 +19,21 @@ export const SignupView = () => {
       Birthday: birthday,
     };
 
-    fetch("https://moviedb48-03600596b84d.herokuapp.com/users", {
-      method: "POST",
+    const userUrl = `https://moviedb48-03600596b84d.herokuapp.com/users/${user.Username}`;
+
+    fetch(userUrl, {
+      method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Signup successful");
-        navigate("/login"); // Redirect to LoginView
+        alert("Update successful");
+        window.location.reload();
       } else {
-        alert("Signup failed");
+        alert("Update failed");
       }
     });
   };
@@ -47,7 +48,7 @@ export const SignupView = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength="3"
-          placeholder="Enter username"
+          placeholder={user.Username}
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
@@ -58,17 +59,17 @@ export const SignupView = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength="8"
-          placeholder="Enter password"
+          placeholder="***********"
         />
       </Form.Group>
       <Form.Group controlId="formEmail">
-        <Form.Label>Email:</Form.Label>
+        <Form.Label>Email::</Form.Label>
         <Form.Control
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          placeholder="Enter email"
+          placeholder={user.Email}
         />
       </Form.Group>
       <Form.Group controlId="formBirthday">
@@ -78,6 +79,7 @@ export const SignupView = () => {
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
           required
+          minLength="3"
         />
       </Form.Group>
       <Button variant="primary" type="submit">
@@ -85,4 +87,14 @@ export const SignupView = () => {
       </Button>
     </Form>
   );
+};
+
+EditProfileView.propTypes = {
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string,
+    FavoriteMovies: PropTypes.array,
+  }).isRequired,
+  token: PropTypes.string.isRequired,
 };
