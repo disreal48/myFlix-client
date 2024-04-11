@@ -44955,7 +44955,7 @@ var _s = $RefreshSig$();
 const MovieView = ({ movies, user, token, favoriteMovies })=>{
     _s();
     const { movieId } = (0, _reactRouter.useParams)();
-    const movie = movies.find((b)=>b.id === movieId);
+    const movie = movies.find((m)=>m.id === movieId);
     const isAlreadyFavorite = favoriteMovies.find((movie)=>movie.id === movieId);
     const addToFavorites = ()=>{
         if (isAlreadyFavorite) {
@@ -44988,7 +44988,7 @@ const MovieView = ({ movies, user, token, favoriteMovies })=>{
             if (response.ok) {
                 alert("Movie removed from favorites successfully");
                 window.location.reload();
-            } else alert("Movie could not be removed to favorites");
+            } else alert("Movie could not be removed from favorites");
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {

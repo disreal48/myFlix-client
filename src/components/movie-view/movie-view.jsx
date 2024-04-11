@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const MovieView = ({ movies, user, token, favoriteMovies }) => {
   const { movieId } = useParams();
 
-  const movie = movies.find((b) => b.id === movieId);
+  const movie = movies.find((m) => m.id === movieId);
 
   const isAlreadyFavorite = favoriteMovies.find(
     (movie) => movie.id === movieId
@@ -48,7 +48,7 @@ export const MovieView = ({ movies, user, token, favoriteMovies }) => {
         alert("Movie removed from favorites successfully");
         window.location.reload();
       } else {
-        alert("Movie could not be removed to favorites");
+        alert("Movie could not be removed from favorites");
       }
     });
   };
