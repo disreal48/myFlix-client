@@ -2,8 +2,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useSelector } from "react-redux";
 
-export const EditProfileView = ({ user, token }) => {
+export const EditProfileView = () => {
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -87,14 +90,4 @@ export const EditProfileView = ({ user, token }) => {
       </Button>
     </Form>
   );
-};
-
-EditProfileView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.string,
-    FavoriteMovies: PropTypes.array,
-  }).isRequired,
-  token: PropTypes.string.isRequired,
 };

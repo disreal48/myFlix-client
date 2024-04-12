@@ -2,8 +2,28 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavoriteMovie } from "../../redux/reducers/favoriteMovies";
+import { removeFavoriteMovie } from "../../redux/reducers/favoriteMovies";
+import { useNavigate } from "react-router-dom";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+import { useState } from "react";
 
-export const MovieView = ({ movies, user, token, favoriteMovies }) => {
+export const MovieView = () => {
+  const movies = useSelector((state) => state.movies);
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
+  const favoriteMovies = useSelector((state) => state.favoriteMovies);
+  const navigate = useNavigate();
+
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
+
+  const dispatch = useDispatch();
+
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
@@ -27,8 +47,7 @@ export const MovieView = ({ movies, user, token, favoriteMovies }) => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Movie added to favorites successfully");
-        window.location.reload();
+        dispatch(addFavoriteMovie(movie));
       } else {
         alert("Movie could not be added to favorites");
       }
@@ -45,8 +64,7 @@ export const MovieView = ({ movies, user, token, favoriteMovies }) => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Movie removed from favorites successfully");
-        window.location.reload();
+        dispatch(removeFavoriteMovie(movie));
       } else {
         alert("Movie could not be removed from favorites");
       }
@@ -55,47 +73,71 @@ export const MovieView = ({ movies, user, token, favoriteMovies }) => {
 
   return (
     <div>
-      <div>
-        <img className="w-100" src={movie.image} />
-      </div>
-      <div>
-        <span>
-          <b>Title: </b>
-        </span>
-        <span>{movie.title}</span>
-      </div>
-      <div>
-        <span>
-          <b>Director: </b>
-        </span>
-        <span>{movie.director}</span>
-      </div>
-      <div>
-        <span>{movie.description}</span>
-      </div>
-
-      {isAlreadyFavorite ? (
-        <Button variant="warning" onClick={() => removeFromFavorites()}>
-          Remove from Favorites
+      <Row>
+        <div>
+          <img className="w-100" src={movie.image} />
+        </div>
+        <div>
+          <span>
+            <b>Title: </b>
+          </span>
+          <span>{movie.title}</span>
+        </div>
+        <div>
+          <span>
+            <b>Director: </b>
+          </span>
+          <span>{movie.director}</span>
+        </div>
+        <div>
+          <span>{movie.description}</span>
+        </div>
+      </Row>
+      <Row>
+        {isAlreadyFavorite ? (
+          <Button
+            variant="warning"
+            onClick={() => {
+              removeFromFavorites();
+              toggleShowA();
+            }}
+          >
+            Remove from Favorites
+          </Button>
+        ) : (
+          <Button
+            variant="success"
+            onClick={() => {
+              addToFavorites();
+              toggleShowA();
+            }}
+          >
+            Add to Favorites
+          </Button>
+        )}
+      </Row>
+      <ToastContainer className="bg-dark" position="bottom-end">
+        <Toast show={showA} onClose={toggleShowA}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">Favorite Movies</strong>
+          </Toast.Header>
+          {isAlreadyFavorite ? (
+            <Toast.Body>Movie successfully added to favorites.</Toast.Body>
+          ) : (
+            <Toast.Body>Movie successfully removed from favorites.</Toast.Body>
+          )}
+        </Toast>
+      </ToastContainer>
+      <Row>
+        <Button className="back-button" onClick={() => navigate(-1)}>
+          Back
         </Button>
-      ) : (
-        <Button variant="success" onClick={() => addToFavorites()}>
-          Add to Favorites
-        </Button>
-      )}
-
-      <div className="d-flex justify-content-end">
-        <Link to={`/`}>
-          <Button className="back-button">Back</Button>
-        </Link>
-      </div>
+      </Row>
     </div>
   );
-};
-
-MovieView.propTypes = {
-  movies: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
-  token: PropTypes.string.isRequired,
-  favoriteMovies: PropTypes.array.isRequired,
 };

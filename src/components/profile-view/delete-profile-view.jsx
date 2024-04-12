@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-export const DeleteProfileView = ({ user, onLoggedOut, token }) => {
+export const DeleteProfileView = () => {
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
   const handleClick = (event) => {
     event.preventDefault();
 
@@ -18,7 +21,9 @@ export const DeleteProfileView = ({ user, onLoggedOut, token }) => {
       if (response.ok) {
         alert("User successfully deleted");
         window.location.reload();
-        onLoggedOut();
+        setUser(null);
+        setToken(null);
+        localStorage.clear();
       } else {
         alert("Delete failed");
       }
@@ -32,15 +37,4 @@ export const DeleteProfileView = ({ user, onLoggedOut, token }) => {
       </Button>
     </div>
   );
-};
-
-DeleteProfileView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.string,
-    FavoriteMovies: PropTypes.array,
-  }).isRequired,
-  onLoggedOut: PropTypes.func.isRequired,
-  token: PropTypes.string.isRequired,
 };
