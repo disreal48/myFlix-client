@@ -45463,7 +45463,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"blCJu","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router":"dbWyW","react-router-dom":"9xmpe","react-redux":"62sf7","../../redux/reducers/favoriteMovies":"hbM2o","react-bootstrap/Col":"2L2I6","react-bootstrap/Row":"cMC39","react-bootstrap/Toast":"iyxlo","react":"21dqq","react-bootstrap/ToastContainer":"kqOPy"}],"62sf7":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"blCJu","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router":"dbWyW","react-router-dom":"9xmpe","react-redux":"62sf7","../../redux/reducers/favoriteMovies":"hbM2o","react-bootstrap/Col":"2L2I6","react-bootstrap/Row":"cMC39","react-bootstrap/Toast":"iyxlo","react-bootstrap/ToastContainer":"kqOPy","react":"21dqq"}],"62sf7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Provider", ()=>Provider_default);
@@ -50656,25 +50656,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"blCJu","react-bootstrap/Button":"aPzUt","react-bootstrap/Form":"iBZ80","prop-types":"7wKI2","../../redux/reducers/token":"4eTad","react-redux":"62sf7","../../redux/reducers/user":"e6tdF"}],"4eTad":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "setToken", ()=>setToken);
-var _toolkit = require("@reduxjs/toolkit");
-const storedToken = localStorage.getItem("token");
-const tokenSlice = (0, _toolkit.createSlice)({
-    name: "token",
-    initialState: storedToken ? storedToken : null,
-    reducers: {
-        setToken: (state, action)=>{
-            return action.payload;
-        }
-    }
-});
-const { setToken } = tokenSlice.actions;
-exports.default = tokenSlice.reducer;
-
-},{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT"}],"e6tdF":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"blCJu","react-bootstrap/Button":"aPzUt","react-bootstrap/Form":"iBZ80","prop-types":"7wKI2","react-redux":"62sf7","../../redux/reducers/user":"e6tdF","../../redux/reducers/token":"4eTad"}],"e6tdF":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setUser", ()=>setUser);
@@ -50691,6 +50673,24 @@ const userSlice = (0, _toolkit.createSlice)({
 });
 const { setUser } = userSlice.actions;
 exports.default = userSlice.reducer;
+
+},{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT"}],"4eTad":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setToken", ()=>setToken);
+var _toolkit = require("@reduxjs/toolkit");
+const storedToken = localStorage.getItem("token");
+const tokenSlice = (0, _toolkit.createSlice)({
+    name: "token",
+    initialState: storedToken ? storedToken : null,
+    reducers: {
+        setToken: (state, action)=>{
+            return action.payload;
+        }
+    }
+});
+const { setToken } = tokenSlice.actions;
+exports.default = tokenSlice.reducer;
 
 },{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT"}],"4OGiN":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$73d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -51496,6 +51496,6 @@ const store = (0, _toolkit.configureStore)({
     }
 });
 
-},{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT","./reducers/movies":"l0qwl","./reducers/user":"e6tdF","./reducers/token":"4eTad","./reducers/favoriteMovies":"hbM2o"}]},["lXJ1q","Ifxvu","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"@reduxjs/toolkit":"fuua8","./reducers/movies":"l0qwl","./reducers/user":"e6tdF","./reducers/token":"4eTad","./reducers/favoriteMovies":"hbM2o","@parcel/transformer-js/src/esmodule-helpers.js":"3AUTT"}]},["lXJ1q","Ifxvu","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
