@@ -13,7 +13,7 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 import { useState } from "react";
 
 export const MovieView = () => {
-  const movies = useSelector((state) => state.movies);
+  const movies = useSelector((state) => state.movies.list);
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const favoriteMovies = useSelector((state) => state.favoriteMovies);
