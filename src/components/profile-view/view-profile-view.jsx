@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-export const ViewProfileView = ({ user }) => {
+export const ViewProfileView = () => {
+  const user = useSelector((state) => state.user);
   const birthday = new Date(user.Birthday).toDateString();
 
   return (
@@ -19,13 +21,4 @@ export const ViewProfileView = ({ user }) => {
       </Card.Body>
     </Card>
   );
-};
-
-ViewProfileView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.string,
-    FavoriteMovies: PropTypes.array,
-  }).isRequired,
 };

@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/token";
 
-export const LoginView = ({ onLoggedIn }) => {
+export const LoginView = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (event) => {
@@ -25,11 +29,12 @@ export const LoginView = ({ onLoggedIn }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Login response: ", data);
+        // console.log("Login response: ", data);
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
+          dispatch(setUser(data.user));
+          dispatch(setToken(data.token));
         } else {
           alert("No such user");
         }
@@ -68,8 +73,4 @@ export const LoginView = ({ onLoggedIn }) => {
       </Button>
     </Form>
   );
-};
-
-LoginView.propTypes = {
-  onLoggedIn: PropTypes.func.isRequired,
 };

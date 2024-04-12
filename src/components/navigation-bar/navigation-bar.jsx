@@ -1,8 +1,14 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/token";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   return (
     <Navbar variant="dark" bg="dark" expand="lg" className="mb-4">
       <Container>
@@ -42,7 +48,15 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                     Delete Profile
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    dispatch(setUser(null));
+                    // dispatch(setToken(null));
+                    localStorage.clear();
+                  }}
+                >
+                  Logout
+                </Nav.Link>
               </>
             )}
           </Nav>
@@ -59,5 +73,4 @@ NavigationBar.propTypes = {
     Birthday: PropTypes.string,
     FavoriteMovies: PropTypes.array,
   }),
-  onLoggedOut: PropTypes.func.isRequired,
 };
