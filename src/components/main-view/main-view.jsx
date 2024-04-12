@@ -14,9 +14,10 @@ import React, { useEffect } from "react"; // Add the missing import statement
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 import { setFavoriteMovies } from "../../redux/reducers/favoriteMovies";
+import { MoviesList } from "../movies-list/movies-list";
 
 export const MainView = () => {
-  const movies = useSelector((state) => state.movies);
+  const movies = useSelector((state) => state.movies.list);
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const favoriteMovies = useSelector((state) => state.favoriteMovies);
@@ -113,7 +114,7 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
+                ) : !movies || movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
@@ -126,21 +127,7 @@ export const MainView = () => {
           <Route
             path="/"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={6}>
-                        <MovieCard movie={movie} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
+              <>{!user ? <Navigate to="/login" replace /> : <MoviesList />}</>
             }
           />
           <Route
@@ -149,7 +136,7 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
-                ) : favoriteMovies.length === 0 ? (
+                ) : !favoriteMovies || favoriteMovies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
