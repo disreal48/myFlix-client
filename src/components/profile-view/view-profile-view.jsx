@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Card, Button } from "react-bootstrap";
+import React from "react";
+import { Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 export const ViewProfileView = () => {

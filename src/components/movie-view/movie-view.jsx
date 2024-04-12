@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addFavoriteMovie } from "../../redux/reducers/favoriteMovies";
 import { removeFavoriteMovie } from "../../redux/reducers/favoriteMovies";
 import { useNavigate } from "react-router-dom";
-import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
