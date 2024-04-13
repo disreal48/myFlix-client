@@ -1,10 +1,12 @@
-import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/token";
 
 export const DeleteProfileView = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     event.preventDefault();
 
@@ -18,10 +20,9 @@ export const DeleteProfileView = () => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("User successfully deleted");
-        window.location.reload();
-        setUser(null);
-        setToken(null);
+        alert("Profile deleted successfully.");
+        dispatch(setUser(null));
+        dispatch(setToken(null));
         localStorage.clear();
       } else {
         alert("Delete failed");

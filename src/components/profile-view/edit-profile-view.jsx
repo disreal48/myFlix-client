@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/token";
 
 export const EditProfileView = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const [username, setUsername] = useState("");
@@ -32,8 +35,10 @@ export const EditProfileView = () => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Update successful");
-        window.location.reload();
+        alert("Profile updated successfully. Please log in again.");
+        dispatch(setUser(null));
+        dispatch(setToken(null));
+        localStorage.clear();
       } else {
         alert("Update failed");
       }
